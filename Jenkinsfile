@@ -45,6 +45,7 @@ pipeline{
                 sh "npm install"
             }
         }
+    }
 
         stage('OWASP FS SCAN') {
             steps {
@@ -52,7 +53,6 @@ pipeline{
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
-
         post {
             always {
                 emailext attachLog: true,
@@ -65,4 +65,3 @@ pipeline{
             }
         }
     }
-}
