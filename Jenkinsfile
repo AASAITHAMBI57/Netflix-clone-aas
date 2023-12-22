@@ -95,7 +95,7 @@ pipeline{
                     dir('Kubernetes') {
                         withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'Kube-Pass', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
                             sh 'kubectl apply -f deployment.yml'
-                            sh 'kubectl apply service.yml'
+                            sh 'kubectl apply -f service.yml'
                         }
                     }
                 }
