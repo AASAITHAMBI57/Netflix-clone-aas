@@ -94,8 +94,8 @@ pipeline{
                 script{
                     dir('Kubernetes') {
                         withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'Kube-Pass', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
-                            sh 'kubectl apply -f deployment.yaml'
-                            sh 'kubectl apply service.yaml'
+                            sh 'kubectl apply -f deployment.yml'
+                            sh 'kubectl apply service.yml'
                         }
                     }
                 }
