@@ -89,10 +89,16 @@ pipeline{
             }
         }
 
-        dir('Kubernetes') {
-            withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'Kube-Pass', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
-                sh 'kubectl apply -f deployment.yaml'
-                sh 'kubectl apply service.yaml'
+        stage('Deploy to kubernets'){
+            steps{
+                script{
+                    dir('Kubernetes') {
+                        withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'Kube-Pass', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
+                            sh 'kubectl apply -f deployment.yaml'
+                            sh 'kubectl apply service.yaml'
+                        }
+                    }
+                }
             }
         }
     }
