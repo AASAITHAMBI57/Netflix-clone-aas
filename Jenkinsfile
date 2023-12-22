@@ -1,6 +1,5 @@
 pipeline{
     agent any
-    try {
     tools{
         jdk 'jdk17'
         nodejs 'node16'
@@ -96,5 +95,4 @@ pipeline{
             }
         }
     }    
-}
 }
