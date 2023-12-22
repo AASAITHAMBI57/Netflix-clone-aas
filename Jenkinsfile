@@ -1,6 +1,6 @@
 pipeline{
     agent any
-
+    try {
     tools{
         jdk 'jdk17'
         nodejs 'node16'
@@ -83,10 +83,10 @@ pipeline{
                 sh 'docker run -d --name netflix -p 8081:80 aasaithambi5/netflix:latest'
             }
         }
-    }
-    post {
-        always {
-            emailext attachLog: true,
+
+        stage('Email Notification'){
+            steps{
+                emailext attachLog: true,
                 subject: "'${currentBuild.result}'",
                 body: "Project: ${env.JOB_NAME}<br/>" +
                     "Build Number: ${env.BUILD_NUMBER}<br/>" +
@@ -95,4 +95,6 @@ pipeline{
                 attachmentsPattern: 'trivyfs.txt,trivyimage.txt'
             }
         }
-    }
+    }    
+}
+}
