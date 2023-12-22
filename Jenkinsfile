@@ -1,5 +1,6 @@
 pipeline{
     agent any
+    try {
     tools{
         jdk 'jdk17'
         nodejs 'node16'
@@ -82,6 +83,7 @@ pipeline{
                 sh 'docker run -d --name netflix -p 8081:80 aasaithambi5/netflix:latest'
             }
         }
+    }
 
         stage('Email Notification'){
             steps{
@@ -96,3 +98,4 @@ pipeline{
         }
     }    
 }
+
