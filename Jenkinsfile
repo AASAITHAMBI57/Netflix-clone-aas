@@ -1,6 +1,6 @@
 pipeline{
     agent any
-    
+
     tools{
         jdk 'jdk17'
         nodejs 'node16'
@@ -77,10 +77,23 @@ pipeline{
             }
         }
 
+        stage('Remove Previous Container'){
+            steps{
+                sh 'docker rm -f netflix'
+            }
+        }
+
         stage('Deploy to container'){
             steps{
                 sh 'docker run -d --name netflix -p 8081:80 aasaithambi5/netflix:latest'
             }
         }
+
+        dir('Kubernetes') {
+            withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'Kube-Pass', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
+                sh 'kubectl apply -f deployment.yaml'
+                sh 'kubectl apply service.yaml'
+            }
+       }
     }
 }
